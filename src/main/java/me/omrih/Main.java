@@ -1,5 +1,6 @@
 package me.omrih;
 
+import me.omrih.commands.TestCommand;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.ItemEntity;
@@ -72,6 +73,8 @@ public class Main {
         allNode.addChild(playerNode);
 
         globalEventHandler.addChild(allNode);
+
+        MinecraftServer.getCommandManager().register(new TestCommand());
 
         MojangAuth.init();
         server.start("0.0.0.0", 62309);
