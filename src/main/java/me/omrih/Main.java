@@ -2,14 +2,19 @@ package me.omrih;
 
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.coordinate.Pos;
+import net.minestom.server.entity.ItemEntity;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.GlobalEventHandler;
 import net.minestom.server.event.player.AsyncPlayerConfigurationEvent;
+import net.minestom.server.event.player.PlayerBlockBreakEvent;
 import net.minestom.server.extras.MojangAuth;
 import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.InstanceManager;
 import net.minestom.server.instance.LightingChunk;
 import net.minestom.server.instance.block.Block;
+import net.minestom.server.item.ItemStack;
+
+import java.time.Duration;
 
 public class Main {
     public static void main(String[] args) {
@@ -26,6 +31,7 @@ public class Main {
         // add lighting
         instanceContainer.setChunkSupplier(LightingChunk::new);
 
+        // Event: something that happens
         // Add event handler to handle player spawning
         GlobalEventHandler globalEventHandler = MinecraftServer.getGlobalEventHandler();
         globalEventHandler.addListener(AsyncPlayerConfigurationEvent.class, event -> {
@@ -34,10 +40,17 @@ public class Main {
             player.setRespawnPoint(new Pos(0, 42, 0));
         });
 
-        // enable online mode
-        MojangAuth.init();
+        globalEventHandler.addListener(PlayerBlockBreakEvent.class, event -> {
+            var material = event.getBlock().registry().material();
+            if (material != null) {
+                var itemStack = ItemStack.of(material);
+                ItemEntity itemEntity = new ItemEntity(itemStack);
+                itemEntity.setInstance(event.getInstance(), event.getBlockPosition().add(0.5,0.5,0.5));
+                itemEntity.setPickupDelay(Duration.ofMillis(500));
+            }
+        });
 
-        // Start the server
+        MojangAuth.init();
         server.start("0.0.0.0", 62309);
     }
 }
