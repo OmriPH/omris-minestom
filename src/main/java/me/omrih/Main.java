@@ -1,5 +1,6 @@
 package me.omrih;
 
+import me.omrih.commands.KillCommand;
 import me.omrih.commands.SetHealthCommand;
 import me.omrih.commands.TestCommand;
 import net.minestom.server.MinecraftServer;
@@ -77,6 +78,7 @@ public class Main {
 
         MinecraftServer.getCommandManager().register(new TestCommand());
         MinecraftServer.getCommandManager().register(new SetHealthCommand());
+        MinecraftServer.getCommandManager().register(new KillCommand());
 
         MojangAuth.init();
         server.start("0.0.0.0", 62309);
