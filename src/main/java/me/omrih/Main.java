@@ -1,5 +1,6 @@
 package me.omrih;
 
+import me.omrih.commands.SetHealthCommand;
 import me.omrih.commands.TestCommand;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.coordinate.Pos;
@@ -75,6 +76,7 @@ public class Main {
         globalEventHandler.addChild(allNode);
 
         MinecraftServer.getCommandManager().register(new TestCommand());
+        MinecraftServer.getCommandManager().register(new SetHealthCommand());
 
         MojangAuth.init();
         server.start("0.0.0.0", 62309);
