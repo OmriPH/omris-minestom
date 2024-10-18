@@ -17,7 +17,7 @@ jobs:
           distribution: 'temurin'
           cache: 'gradle'
       - run: ./gradlew build
-      - run: mkdir staging && mv build/omris-minestom-*.jar build/omris-minestom-${{ env.build-number }}.jar && cp build/*.jar staging
+      - run: mkdir staging && mv build/libs/omris-minestom-*.jar build/libs/omris-minestom-${{ env.build-number }}.jar && cp build/*.jar staging
       - uses: actions/upload-artifact@v4
         with:
           path: staging/*.jar
