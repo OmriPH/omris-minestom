@@ -15,11 +15,13 @@ import net.minestom.server.event.item.PickupItemEvent;
 import net.minestom.server.event.player.AsyncPlayerConfigurationEvent;
 import net.minestom.server.event.player.PlayerBlockBreakEvent;
 import net.minestom.server.extras.MojangAuth;
+import net.minestom.server.instance.Instance;
 import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.InstanceManager;
 import net.minestom.server.instance.LightingChunk;
 import net.minestom.server.instance.block.Block;
 import net.minestom.server.item.ItemStack;
+import net.minestom.server.utils.time.TimeUnit;
 
 import java.time.Duration;
 
@@ -79,6 +81,22 @@ public class Main {
         MinecraftServer.getCommandManager().register(new TestCommand());
         MinecraftServer.getCommandManager().register(new SetHealthCommand());
         MinecraftServer.getCommandManager().register(new KillCommand());
+
+        var scheduler = MinecraftServer.getSchedulerManager();
+        scheduler.buildShutdownTask(() -> {
+            System.out.println("The server is shutting down");
+            instanceManager.getInstances().forEach(Instance::saveChunksToStorage);
+        });
+
+        // Repeating task to continually save the world
+        scheduler.buildTask(() -> {
+            System.out.println("Saving all instances...");
+            instanceManager.getInstances().forEach(Instance::saveChunksToStorage);
+            System.out.println("Saved instances");
+        })
+                .repeat(30, TimeUnit.SECOND)
+                .delay(1, TimeUnit.MINUTE)
+                .schedule();
 
         MojangAuth.init();
         server.start("0.0.0.0", 62309);
