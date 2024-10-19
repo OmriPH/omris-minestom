@@ -1,5 +1,6 @@
 package me.omrih;
 
+import me.omrih.commands.GamemodeCommand;
 import me.omrih.commands.KillCommand;
 import me.omrih.commands.SetHealthCommand;
 import me.omrih.commands.TestCommand;
@@ -81,6 +82,7 @@ public class Main {
         MinecraftServer.getCommandManager().register(new TestCommand());
         MinecraftServer.getCommandManager().register(new SetHealthCommand());
         MinecraftServer.getCommandManager().register(new KillCommand());
+        MinecraftServer.getCommandManager().register(new GamemodeCommand());
 
         var scheduler = MinecraftServer.getSchedulerManager();
         scheduler.buildShutdownTask(() -> {
