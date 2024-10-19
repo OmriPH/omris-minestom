@@ -1,9 +1,6 @@
 package me.omrih;
 
-import me.omrih.commands.GamemodeCommand;
-import me.omrih.commands.KillCommand;
-import me.omrih.commands.SetHealthCommand;
-import me.omrih.commands.TestCommand;
+import me.omrih.commands.*;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.ItemEntity;
@@ -83,6 +80,7 @@ public class Main {
         MinecraftServer.getCommandManager().register(new SetHealthCommand());
         MinecraftServer.getCommandManager().register(new KillCommand());
         MinecraftServer.getCommandManager().register(new GamemodeCommand());
+        MinecraftServer.getCommandManager().register(new TitleCommand());
 
         var scheduler = MinecraftServer.getSchedulerManager();
         scheduler.buildShutdownTask(() -> {
