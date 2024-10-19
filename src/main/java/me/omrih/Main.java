@@ -81,6 +81,7 @@ public class Main {
         MinecraftServer.getCommandManager().register(new KillCommand());
         MinecraftServer.getCommandManager().register(new GamemodeCommand());
         MinecraftServer.getCommandManager().register(new TitleCommand());
+        MinecraftServer.getCommandManager().register(new BroadcastCommand());
 
         var scheduler = MinecraftServer.getSchedulerManager();
         scheduler.buildShutdownTask(() -> {
