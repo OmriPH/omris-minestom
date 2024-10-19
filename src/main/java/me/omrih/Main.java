@@ -1,5 +1,8 @@
 package me.omrih;
 
+import io.github.togar2.pvp.MinestomPvP;
+import io.github.togar2.pvp.feature.CombatFeatureSet;
+import io.github.togar2.pvp.feature.CombatFeatures;
 import me.omrih.commands.*;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.coordinate.Pos;
@@ -37,6 +40,12 @@ public class Main {
 
         // add lighting
         instanceContainer.setChunkSupplier(LightingChunk::new);
+
+        //init pvp
+        MinestomPvP.init();
+
+        CombatFeatureSet modernVanilla = CombatFeatures.modernVanilla();
+        MinecraftServer.getGlobalEventHandler().addChild(modernVanilla.createNode());
 
         // Add event handler to handle player spawning
         GlobalEventHandler globalEventHandler = MinecraftServer.getGlobalEventHandler();

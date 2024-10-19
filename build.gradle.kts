@@ -8,11 +8,13 @@ version = "1.1"
 
 repositories {
     mavenCentral()
+    maven ("https://jitpack.io")
 }
 
 dependencies {
     implementation("net.minestom:minestom-snapshots:0ca1dda2fe")
     implementation("org.slf4j:slf4j-simple:2.0.16")
+    implementation("com.github.TogAr2:MinestomPvP:04180ddf9a")
 }
 
 java {
