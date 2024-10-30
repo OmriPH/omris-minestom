@@ -70,7 +70,7 @@ public class Main {
             if (material != null) {
                 var itemStack = ItemStack.of(material);
                 ItemEntity itemEntity = new ItemEntity(itemStack);
-                itemEntity.setInstance(event.getInstance(), event.getBlockPosition().add(0.5,0.5,0.5));
+                itemEntity.setInstance(event.getInstance(), event.getBlockPosition().add(0.5,10,0.5));
                 itemEntity.setPickupDelay(Duration.ofMillis(500));
             }
         });
